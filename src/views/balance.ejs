@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel="stylesheet" href="../styles/main.css"> 
+    </head>
+    <body>
+        <%- include header.ejs %>
+
+        <form style="padding: 30px" method="get" action="/getbalance.html">
+
+            <select name="account">
+                <% accounts.forEach(function(account, index){ %>
+                    <option value ="<%= account %>"><%= account %></option>
+                <% }) %>
+            </select>
+            <input type="submit" value="Submit" />
+        </form>
+	
+    </body>
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../js/home.js"></script>
+</html>

@@ -1,0 +1,22 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* 主体 */
+body {
+  background-color: #f2f2f2;
+  color: #24292e;
+}
+
+/* 头部 */
+header {
+  height: 50px;
+  background-color: #fff;
+}
+header nav {
+  width: 80%;
+  height: 100%;  
+  margin: 0 auto;
+}
+header nav a {
+  float: right;
+  line-height: 50px;
+}

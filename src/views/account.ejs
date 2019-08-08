@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel="stylesheet" href="../styles/main.css"> 
+    </head>
+    <style>
+        table td {
+            padding: 5px 10px;
+            border:1px solid #000000;
+        }
+    </style>
+    <body>
+        <%- include header.ejs %>
+        <div style="padding: 30px">
+            <table  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td style="width: 100px; text-align: center">序号</td>
+                    <td style="text-align: center">address</td>
+                </tr>
+                <% accounts.forEach(function(account, index){ %>
+                    <tr>
+                        <td style="width: 100px;text-align: center"><%= index %></td>
+                        <td style="text-align: center"><%= account %></td>
+                    </tr>
+                <% }) %>
+            </table>
+            
+    
+            <p style="margin: 20px 0;">
+                新建账号
+                <form method="get" action="/new">
+                    密码：<input type="password" name="password" />
+                    <input type="submit" value="新建账号" />
+                </form>
+            </p>
+        </div>
+        
+	
+    </body>
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../js/home.js"></script>
+</html>
