@@ -1,4 +1,8 @@
 const router = require('koa-router')()
-const store = require('../../controllers/store')
+const api = require('../../controllers/apiController')
 
-module.exports = router.post('/insertProduct', store.insertProduct)
+module.exports = router.post('newAccount', api.newAccount)
+                       .post('unlock/private', api.unlockAccountWithPrivate)
+                       .post('unlock/keystore', api.unlockAccountWithKeystore)
+                       .post('unlock/mnemonic', api.unlockAccountWithMnemonic)
+                       .post('/transaction/send', api.sendTransaction)

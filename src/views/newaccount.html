@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>创建钱包</title>
+        <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+        <script src="/js/wallet.js"></script>
+        <link rel="stylesheet" href="/styles/wallet.css">
+    </head>
+    <body>
+        <div id="nav">
+            <%- include ./components/nav.html %>
+        </div>
+
+        <div id="main">
+            <h1>创建一个新的账号</h1>
+            <form method="POST" action="/newAccount">
+                <input type="text" placeholder="请输入密码" name="password">
+                <button type="submit">创建账号</button>
+            </form>
+        </div>
+    </body>
+</html>

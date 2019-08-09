@@ -6,9 +6,13 @@ const static = require('koa-static')
 const views = require('koa-views')
 const { port } = require('../config')
 const router = require('./routers/index')
+const koaBody = require("koa-body")
 
 // 创建koa实例
 const app = new Koa()
+
+//针对于文件上传的时候，可以解析多个字段
+app.use(koaBody({multipart:true}))
 
 // 配置跨域
 app.use(cors())
@@ -20,7 +24,7 @@ app.use(bodyparser())
 app.use(static(path.join(__dirname, '../public')))
 
 // 配置模板引擎中间件
-app.use(views(path.join(__dirname, './views'), {extension:'ejs'}))
+app.use(views(path.join(__dirname, './views'), {extension:'ejs', map:{html:"ejs"}}))
 
 // 配置路由中间件
 app.use(router.routes()).use(router.allowedMethods())
