@@ -64,4 +64,4 @@ const myWallet = {
     }
 }
 myWallet.createWallet()
-myWallet.getMyPrivateByMnemonic('hundred shrimp bacon poem enable trim yard slight smile suffer normal cinnamon')
+myWallet.getWalletByMnemonic('hundred shrimp bacon poem enable trim yard slight smile suffer normal cinnamon')

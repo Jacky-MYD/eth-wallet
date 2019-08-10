@@ -228,6 +228,17 @@ const api = {
         })
 
         ctx.body = responseData
+    },
+
+    // 通过交易hash查询区块
+    searchBlock: async (ctx) => {
+        console.log("hash:", ctx.request.body.hash)
+        let hash = ctx.request.body.hash
+        var receipt = await web3.eth.getTransactionReceipt(hash)
+        responseData = success({
+            receipt: receipt
+        })
+        ctx.body = responseData
     }
 }
 

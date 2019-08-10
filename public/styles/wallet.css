@@ -29,7 +29,7 @@ a[class=button]{
 #nav{
     display: flex;
     justify-content: space-between;
-    background-color: #0abc9c;
+    background-color: skyblue;
     position: fixed;
     top: 0px;
     left: 0px;
@@ -51,4 +51,15 @@ a[class=button]{
 }
 #nav-right{
     margin-right: 20px;
+}
+
+table {
+    margin-top: 20px;
+    border-collapse:collapse;
+}
+
+table, td, th {
+    padding: 5px 10px;
+    border:1px solid black;
+    text-align: center;
 }

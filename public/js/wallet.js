@@ -75,6 +75,28 @@ function configAccountInfo(data) {
 
     $("#account-token-info").text(data.tokenbalance + " " + data.symbol)
     $("#send-transaction-token-symbol").text(data.symbol)
+
+    $('.block-detail').show()
+    $('.block-status').text(data.status)
+    $('.transaction-hash').text(data.transactionHash)
+    $('.block-hash').text(data.blockHash)
+    $('.block-number').text(data.blockNumber)
+    $('.block-from').text(data.from)
+    $('.block-to').text(data.to)
+}
+
+// 通过交易hash查询块信息
+function searchBlock() {
+    let hash = $("#input-hash").val()
+    if (!hash) return
+    console.log(hash)
+    $.post("/block/search", `hash=${hash}`, function (res, status) {
+        console.log(status + JSON.stringify(res))
+        if (res.code == 0) {
+            //将服务端返回的账户信息显示到页面
+            configAccountInfo(res.data.receipt)
+        } 
+    })
 }
 
 $(document).ready(function () {

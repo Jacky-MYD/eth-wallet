@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>创建钱包</title>
+        <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+        <script src="http://malsup.github.io/jquery.form.js"></script>
+        <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+        <script src="/js/wallet.js"></script>
+        <link rel="stylesheet" href="/styles/wallet.css">
+    </head>
+    <body>
+        <div id="nav">
+            <%- include ./components/nav.html %>
+        </div>
+
+        <div id="main">
+            <h1>交易信息状态</h1>
+            <form>
+                <input id="input-hash" type="text" placeholder="请输入交易hash" name="hash" style="width: 500px">
+                <button type="button" onclick="searchBlock()">查询</button>
+            </form>
+
+            <table class="block-detail" style="display: none">
+                <tr>
+                    <th colspan="2">Transaction Block</th>
+                </tr>
+                <tr>
+                    <td>status:</td>
+                    <td class="block-status"></td>
+                </tr>
+                <tr>
+                    <td>transactionHash:</td>
+                    <td class="transaction-hash"></td>
+                </tr>
+                <tr>
+                    <td>blockHash:</td>
+                    <td class="block-hash"></td>
+                </tr>
+                <tr>
+                    <td>blockNumber:</td>
+                    <td class="block-number"></td>
+                </tr>
+                <tr>
+                    <td>From:</td>
+                    <td class="block-from"></td>
+                </tr>
+                <tr>
+                    <td>To:</td>
+                    <td class="block-to"></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
