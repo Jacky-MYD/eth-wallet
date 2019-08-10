@@ -94,6 +94,7 @@ $(document).ready(function () {
 
     //转账
     $("#send-transaction-form").validate({
+        debug:true,
         rules:{
             toaddress:{
                 required: true,
@@ -119,8 +120,8 @@ $(document).ready(function () {
             } else {
                 urlStr = "/token/send"
             }
-
-            $.ajax({
+            console.log(urlStr)
+            $("#send-transaction-form").ajaxSubmit({
                 url:urlStr,
                 type:"post",
                 dataType:"json",

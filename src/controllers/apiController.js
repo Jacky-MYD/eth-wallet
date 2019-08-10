@@ -1,8 +1,9 @@
-let { success, fail } = require("../util/web3")
+const { success, fail } = require("../util/web3")
 const web3 = require('../util/web3').getWeb3()
-let menmonicModel = require("../util/mnemonic")
+const menmonicModel = require("../util/mnemonic")
 const path = require('path')
 const fs = require('fs')
+const EthereumTx = require('ethereumjs-tx').Transaction
 
 //获取以太币余额
 async function getAccountBalance(address) {
@@ -112,9 +113,9 @@ const api = {
         let gasPrice = await web3.eth.getGasPrice()
         let balance = await web3.utils.toWei(number)
 
-        var Tx = require('ethereumjs-tx');
-        var privateKey = new Buffer(privatekey.slice(2), 'hex')
-
+        console.log('nonce:', nonce);
+        
+        var privateKey = Buffer.from(privatekey.slice(2), 'hex')
         var rawTx = {
             from:fromaddress,
             nonce: nonce,
@@ -127,11 +128,14 @@ const api = {
         let gas = await web3.eth.estimateGas(rawTx)
         rawTx.gas = gas
 
-        var tx = new Tx(rawTx);
-        tx.sign(privateKey);
+        console.log(444, rawTx)
+        var tx = new EthereumTx(rawTx)
+        console.log(555, tx);
+        
+        tx.sign(privateKey)
 
-        var serializedTx = tx.serialize();
-        let responseData;
+        var serializedTx = tx.serialize()
+        let responseData
         await web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'), function(err, data) {
             console.log(err)
             console.log(data)

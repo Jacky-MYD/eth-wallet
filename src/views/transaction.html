@@ -2,9 +2,9 @@
 
 <head>
     <title>转账</title>
-    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
-<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="http://malsup.github.io/jquery.form.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
     <script src="/js/wallet.js"></script>
     <link rel="stylesheet" href="/styles/wallet.css">
 </head>
@@ -63,7 +63,7 @@
                     <div>
                         <span>发送金额</span>
                         <input type="text" name="number">
-                        <select id="send-transaction-token-type">
+                        <select id="send-transaction-token-type" name="type">
                             <option value="1">ETH</option>
                             <option value="2" id="send-transaction-token-symbol"></option>
                         </select>
