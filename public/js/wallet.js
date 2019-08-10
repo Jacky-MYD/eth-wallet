@@ -72,6 +72,9 @@ function configAccountInfo(data) {
 
     $("input[name=fromaddress]").val(data.address)
     $("input[name=privatekey]").val(data.privatekey)
+
+    $("#account-token-info").text(data.tokenbalance + " " + data.symbol)
+    $("#send-transaction-token-symbol").text(data.symbol)
 }
 
 $(document).ready(function () {

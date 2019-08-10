@@ -1,4 +1,4 @@
-let web3 = require('./web3')
+let web3 = require('./web3').getWeb3()
 
 module.exports = {
     getContract: () => {
@@ -112,6 +112,20 @@ module.exports = {
                 ],
                 "payable": false,
                 "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "manager",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "address"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
                 "type": "function"
             },
             {
@@ -297,8 +311,8 @@ module.exports = {
                 "type": "event"
             }
         ]
-        let contractAddress = "0x4f691f1efb93593b18eb6ba355d243d936b213fc"
-        let myContract = new web3.eth.Contract(JSON.parse(ABI), contractAddress)
+        let contractAddress = "0x8fbebb1568b0a711cac5f8fd3619382b00600d80"
+        let myContract = new web3.eth.Contract(ABI, contractAddress)
         return myContract
     },
 }

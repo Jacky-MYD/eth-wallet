@@ -4,6 +4,8 @@ const menmonicModel = require("../util/mnemonic")
 const path = require('path')
 const fs = require('fs')
 const EthereumTx = require('ethereumjs-tx').Transaction
+const myContract = require('../util/contract').getContract()
+let haveToken = true
 
 //获取以太币余额
 async function getAccountBalance(address) {
@@ -23,9 +25,21 @@ async function setResponseData(account) {
         privatekey: account.privateKey
     })
 
+    //获取代币的数据
+    if (haveToken) {
+        let myBalance = await myContract.methods.balanceOf(account.address).call()
+        let decimals = await myContract.methods.decimals().call()
+        myBalance = myBalance / Math.pow(10, decimals)
+        let symbol = await myContract.methods.symbol().call()
+
+        resData.data.tokenbalance = myBalance
+        resData.data.symbol = symbol
+    }
+
     //返回相应数据给前端
     return resData
 }
+
 
 const api = {
      //创建账户的表单提交被触发的方法
@@ -157,6 +171,64 @@ const api = {
 
         ctx.body = responseData
     },
+
+    // token交易
+    sendTokenTransaction: async (ctx) => {
+        let { fromaddress, toaddress, number, privatekey } = ctx.request.body
+        console.log(JSON.stringify(ctx.request.body))
+
+        let nonce = await web3.eth.getTransactionCount(fromaddress)
+        let gasPrice = await web3.eth.getGasPrice()
+
+        let decimals = await myContract.methods.decimals().call()
+        let balance = number * Math.pow(10, decimals)
+
+        let myBalance = await myContract.methods.balanceOf(fromaddress).call()
+        if (myBalance < balance) {
+            ctx.body = fail("余额不足")
+            return
+        }
+        let tokenData = await myContract.methods.transfer(toaddress, balance).encodeABI()
+
+        var privateKey = Buffer.from(privatekey.slice(2), 'hex')
+
+        var rawTx = {
+            from: fromaddress,
+            nonce: nonce,
+            gasPrice: gasPrice,
+            to: myContract.options.address,//如果转的是Token代币，那么这个to就是合约地址
+            data: tokenData//转Token会用到的一个字段
+        }
+        //需要讲交易的数据进行预估Gas计算，然后将Gas值设置到数据参数中
+        let gas = await web3.eth.estimateGas(rawTx)
+        rawTx.gas = gas
+
+        var tx = new EthereumTx(rawTx);
+        tx.sign(privateKey);
+
+        var serializedTx = tx.serialize();
+        let responseData;
+        await web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'), function(err, data) {
+            console.log(err)
+            console.log(data)
+
+            if (err) {
+                responseData = fail(err)
+            }
+        })
+        .then(function(data) {
+            console.log(data)
+            if (data) {
+                responseData = success({
+                    "transactionHash":data.transactionHash
+                })
+            } else {
+                responseData = fail("交易失败")
+            }
+        })
+
+        ctx.body = responseData
+    }
 }
 
 module.exports = api
